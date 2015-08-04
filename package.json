@@ -2,6 +2,10 @@
   "name": "teamspeak",
   "version": "0.0.1",
   "description": "A teamspeak module for node.js",
+  "repository": {
+  	"type": "git",
+  	"url": "git@github.com:xbenjii/Teamspeak.git"
+  },
   "main": "index.js",
   "scripts": {
     "build": "babel --stage 0 --out-dir lib es6"

@@ -25,6 +25,7 @@ class TS3 extends EventEmitter {
 		this._openRequests = 0;
 		this._promiseChain = this.connected;
 		this._skippedWelcome = -2;
+		this._response = null;
 	}
 	onData(line) {
 		this._openRequests--;
@@ -34,20 +35,25 @@ class TS3 extends EventEmitter {
 			return;
 		}
 		line = line.trim();
+		this.debug(`[RECEIVED] ${line} for {${this.promise.command}}`);
 		if(line.indexOf("error") !== -1) {
 			let response = utils.parseResponse(line);
-			if(response.error && response.id !== 0) {
+			if(response.error && response.msg !== 'ok') {
 				response.command = this.promise.command;
 				this.promise.reject(response);
 			} else {
-				this.promise.resolve(response);
+				if(this._response) {
+					this.promise.resolve(this._response);
+				} else {
+					this.promise.resolve(response);
+				}
 			}
 		} else if (line.indexOf("notify") !== -1) {
 			let notification = line.substr('notify'.length);
 			this.emit(notification.substr(notification, notification.indexOf(" ")), utils.parseResponse(line));
 			this.emit('*', utils.parseResponse(line));
 		} else {
-			this.promise.resolve(utils.parseResponse(line));
+			this._response = utils.parseResponse(line);
 		}
 	}
 	send(command, data = {}) {
@@ -55,13 +61,19 @@ class TS3 extends EventEmitter {
 		this._promiseChain = this._promiseChain.then(() => {
 			return new Promise((resolve, reject) => {
 				this.promise = {resolve, reject, command};
-				this.socket.write(`${utils.buildCommand(command, data)}\n`);
+				let builtCommand = utils.buildCommand(command, data);
+				this.debug(`[SENT] ${builtCommand}`);
+				this.socket.write(`${builtCommand}\n`);
 			});
 		});
 		return this._promiseChain;
 	}
 	authenticate(username, password) {
 		return this.send('login', [username, password]);
+	}
+	debug(message) {
+		if(typeof this.options.debug === 'function')
+			this.options.debug(message);
 	}
 }
 

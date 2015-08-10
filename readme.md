@@ -8,11 +8,14 @@ import {Client} from 'teamspeak';
 
 let ts3 = new Client('myDomainOrIp.com', 10011);
 
+ts3.on('error', error => console.log(error));
+
 ts3.authenticate('username', 'password')
 	.then(() => ts3.send('use', '1')) //Use virtual server with ID=1
 	.then(() => ts3.send('servernotifyregister', {event: 'server'}))
 	.then(() => ts3.send('clientlist'))
-	.then(clients => console.log(clients));
+	.then(clients => console.log(clients))
+	.catch(error => console.log(error));
 
 /* Will return a response like:
 { notifycliententerview: '',

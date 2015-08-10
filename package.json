@@ -1,6 +1,6 @@
 {
   "name": "teamspeak",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A teamspeak module for node.js",
   "repository": {
   	"type": "git",

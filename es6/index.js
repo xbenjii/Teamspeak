@@ -17,7 +17,9 @@ class TS3 extends EventEmitter {
 		this.socket = net.connect(this.port, this.host);
 		this.connected = new Promise((resolve, reject) => {
 			this.socket.on('connect', resolve);
-			this.socket.on('error', reject);
+			this.socket.on('error', error => {
+				this.emit('error', error);
+			});
 		}).then(() => {
 			this.reader = byline.createStream(this.socket, {encoding: 'utf-8', keepEmptyLines: false});
 			this.reader.on('data', this.onData.bind(this));

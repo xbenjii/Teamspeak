@@ -1,10 +1,10 @@
 {
   "name": "teamspeak",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A teamspeak module for node.js",
   "repository": {
-  	"type": "git",
-  	"url": "git@github.com:xbenjii/Teamspeak.git"
+    "type": "git",
+    "url": "git@github.com:xbenjii/Teamspeak.git"
   },
   "main": "index.js",
   "scripts": {

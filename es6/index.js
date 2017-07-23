@@ -44,6 +44,7 @@ class TS3 extends EventEmitter {
 			if(response.error && response.msg !== 'ok') {
 				response.command = this.promise.command;
 				this.promise.reject(response);
+				this._promiseChain = Promise.resolve();
 			} else {
 				if(this._response) {
 					this.promise.resolve(this._response);

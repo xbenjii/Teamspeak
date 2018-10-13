@@ -1,9 +1,8 @@
-#Teamspeak
-### A node library to connect and administrate your Teamspeak 3 server
+# Teamspeak
+A node library to connect and administrate your Teamspeak 3 server
 
-
-##Example
-```
+## Example
+```javscript
 import {Client} from 'teamspeak';
 
 let ts3 = new Client('myDomainOrIp.com', 10011);

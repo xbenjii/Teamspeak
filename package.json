@@ -6,10 +6,28 @@
     "type": "git",
     "url": "git@github.com:xbenjii/Teamspeak.git"
   },
+  "scripts": {
+    "test": "ava"
+  },
   "main": "index.js",
+  "ava": {
+    "files": [
+      "tests/**/*.ts"
+    ],
+    "compileEnhancements": false,
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ]
+  },
   "author": "Benjamin Fortune",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^10.12.18"
+    "@types/node": "^10.12.18",
+    "ava": "^1.0.1",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.2"
   }
 }

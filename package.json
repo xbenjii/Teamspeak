@@ -1,22 +1,15 @@
 {
   "name": "teamspeak",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "A teamspeak module for node.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:xbenjii/Teamspeak.git"
   },
   "main": "index.js",
-  "scripts": {
-    "build": "babel --stage 0 --out-dir lib es6"
-  },
   "author": "Benjamin Fortune",
   "license": "MIT",
   "devDependencies": {
-    "babel": "^5.6.14"
-  },
-  "dependencies": {
-    "bluebird": "^2.9.33",
-    "byline": "^4.2.1"
+    "@types/node": "^10.12.18"
   }
 }

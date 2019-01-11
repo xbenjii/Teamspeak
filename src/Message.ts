@@ -15,7 +15,7 @@ export class Message {
             return group.split(' ').map(val => {
                 const [key, value] = val.split('=');
                 if(value === undefined) {
-                    return '-' + key;
+                    return key;
                 }
                 return { [key]: value };
             });

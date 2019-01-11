@@ -9,9 +9,8 @@ test('message should init', t => {
 });
 
 test('message with params should parse into object', t => {
-    const message = new Message('instanceinfo serverinstance_database_version=11 serverinstance_filetransfer_port=30033');
+    const message = new Message('serverinstance_database_version=11 serverinstance_filetransfer_port=30033');
     t.is(message.parse(), [
-        'instanceinfo',
         {
             serverinstance_database_version: '11',
             serverinstance_filetransfer_port: '30033'

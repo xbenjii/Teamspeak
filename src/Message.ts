@@ -1,6 +1,7 @@
 import { unescape } from './utils';
 
 export type MessageObject = { [key: string]: string | number | Array<string | number> };
+export type MessageArgs = Array<MessageObject>;
 
 export class Message {
 
@@ -10,15 +11,13 @@ export class Message {
         this.rawMessage = rawMessage;
     }
 
-    parse(): any {
+    parse(): MessageArgs {
         return this.rawMessage.split('|').map(group => {
-            return group.split(' ').map(val => {
+            return group.split(' ').reduce((obj, val) => {
                 const [key, value] = val.split('=');
-                if(value === undefined) {
-                    return key;
-                }
-                return { [key]: value };
-            });
+                obj[key] = (value !== undefined) ? unescape(value) : '';
+                return obj;
+            }, <MessageObject>{});
         });
     }
 

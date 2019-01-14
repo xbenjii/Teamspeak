@@ -21,4 +21,6 @@ export abstract class BaseConnection extends EventEmitter {
     public abstract async onData(data: string): Promise<Message>;
 
     public abstract async onError(): Promise<any>;
+
+    public abstract async setupListener(): Promise<any>;
 }

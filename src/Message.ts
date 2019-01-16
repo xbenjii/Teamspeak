@@ -10,6 +10,7 @@ export class Message {
 
     constructor(rawMessage: string) {
         this.rawMessage = rawMessage;
+        this.parse();
     }
 
     parse(): MessageArgs {

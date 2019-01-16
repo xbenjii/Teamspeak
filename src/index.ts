@@ -1,4 +1,5 @@
 import { TelnetConnection, SSHConnection } from './Connections';
+import { CommandParams } from './Command';
 
 export enum TeamspeakConnectionType {
     Telnet,
@@ -20,6 +21,7 @@ export class Teamspeak {
 
     private options: TeamspeakOptions;
     private connection!: TelnetConnection | SSHConnection;
+    private activeCommand!: null;
 
     constructor(options: TeamspeakOptions) {
         this.options = options;
@@ -28,6 +30,10 @@ export class Teamspeak {
 
     connect(): Promise<any> {
         return this.connection.connect();
+    }
+
+    async send(command: CommandParams): Promise<any> {
+
     }
 
 }

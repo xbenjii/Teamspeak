@@ -3,6 +3,7 @@ import readline from 'readline';
 
 import { BaseConnection, BaseConnectionOptions } from './BaseConnection';
 import { Message } from '../Message';
+import { CommandParams, CommandObject } from '../Command';
 
 export interface TelnetConnectionOptions extends BaseConnectionOptions {
     host: string,
@@ -14,6 +15,7 @@ export class TelnetConnection extends BaseConnection {
     private options: TelnetConnectionOptions
     private socket!: Socket;
     private stream!: readline.Interface;
+    private activeCommand!: CommandObject;
 
     constructor(options: TelnetConnectionOptions) {
         super();
@@ -46,7 +48,9 @@ export class TelnetConnection extends BaseConnection {
     public async onData(data: string): Promise<any> {
         const message = new Message(data);
         if(message.isNotification()) {
-            this.emit(message.parsedMessage[0].toString());
+             const [notificationType] = message.parsedMessage;
+             const [, ...notificationArgs] = message.parsedMessage;
+            this.emit(notificationType.toString(), notificationArgs);
         }
     }
 
